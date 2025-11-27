@@ -4,6 +4,9 @@ let newsDatabase = [];
 let currentCategory = 'todas';
 let currentNewsId = null;
 
+const NEWS_PER_LOAD = 10;
+let currentNewsLimit = NEWS_PER_LOAD;
+
 // Inicializar aplicación
 document.addEventListener('DOMContentLoaded', async function() {
     // Inicializar Supabase
@@ -28,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 // Cargar noticias desde Supabase
 async function loadNewsFromDatabase() {
     newsDatabase = await getAllNews();
+    currentNewsLimit = NEWS_PER_LOAD;
     renderAllNews();
 }
 
@@ -144,13 +148,15 @@ function renderFeaturedNews() {
 // Renderizar grid de noticias
 function renderNewsGrid() {
     const newsGrid = document.getElementById('newsGrid');
+    const loadMoreBtn = document.getElementById('loadMoreNewsButton');
+
     let filteredNews = currentCategory === 'todas'
-        ? newsDatabase
+        ? [...newsDatabase]
         : newsDatabase.filter(n => n.category === currentCategory);
 
     filteredNews = filteredNews.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-    if (filteredNews.length === 0) {
+    if (!filteredNews || filteredNews.length === 0) {
         newsGrid.innerHTML = `
             <div class="empty-state" style="grid-column: 1 / -1;">
                 <i class="fas fa-newspaper"></i>
@@ -158,11 +164,16 @@ function renderNewsGrid() {
                 <p>Haz clic en "Nueva Noticia" para agregar la primera</p>
             </div>
         `;
+        if (loadMoreBtn) loadMoreBtn.style.display = 'none';
         return;
     }
 
+    const total = filteredNews.length;
+    const limit = Math.min(currentNewsLimit || NEWS_PER_LOAD, total);
+    const visibleNews = filteredNews.slice(0, limit);
+
     let html = '';
-    filteredNews.forEach(news => {
+    visibleNews.forEach(news => {
         const imgSrc = news.image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png';
         html += `
             <article class="news-card" onclick="openNewsDetail(${news.id})">
@@ -195,6 +206,19 @@ function renderNewsGrid() {
     });
 
     newsGrid.innerHTML = html;
+
+    if (loadMoreBtn) {
+        if (limit < total) {
+            loadMoreBtn.style.display = 'inline-flex';
+        } else {
+            loadMoreBtn.style.display = 'none';
+        }
+    }
+}
+
+function loadMoreNews() {
+    currentNewsLimit += NEWS_PER_LOAD;
+    renderNewsGrid();
 }
 
 // Renderizar noticias populares
@@ -308,6 +332,7 @@ function setupCategoryFilters() {
             document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
             this.classList.add('active');
             currentCategory = this.dataset.category;
+            currentNewsLimit = NEWS_PER_LOAD;
             renderFeaturedNews();
             renderNewsGrid();
         });
