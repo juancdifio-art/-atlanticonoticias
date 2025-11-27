@@ -613,6 +613,7 @@ main {
     font-weight: 700;
     text-transform: uppercase;
     border-radius: 2px;
+    z-index: 2;
 }
 
 .news-card-content {
@@ -1032,7 +1033,8 @@ footer {
         padding: 1.5rem 0;
     }
 
-    .content-wrapper {
+    .content-wrapper,
+    .detail-layout {
         grid-template-columns: 1fr;
         gap: 2rem;
         margin-top: 2rem;
@@ -1621,7 +1623,6 @@ html {
 .content-wrapper,
 .detail-layout {
     display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(0, 1.3fr);
     gap: 2.5rem;
     align-items: flex-start;
 }
@@ -1633,4 +1634,11 @@ html {
 .main-content,
 .sidebar {
     min-width: 0;
+}
+
+@media (min-width: 769px) {
+    .content-wrapper,
+    .detail-layout {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 1.3fr);
+    }
 }
