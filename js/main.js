@@ -147,10 +147,11 @@ function renderNewsGrid() {
 
     let html = '';
     filteredNews.forEach(news => {
+        const imgSrc = news.image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png';
         html += `
             <article class="news-card" onclick="openNewsDetail(${news.id})">
-                <div class="news-card-image">
-                    <img src="${news.image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png'}" alt="${news.title}">
+                <div class="news-card-image" style="background-image: url('${imgSrc}')">
+                    <img src="${imgSrc}" alt="${news.title}">
                     <span class="category">${news.category}</span>
                 </div>
                 <div class="news-card-content">

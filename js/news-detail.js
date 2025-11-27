@@ -77,7 +77,14 @@ function renderNewsDetail(news) {
     const viewsEl = document.getElementById('detailViews');
     const contentEl = document.getElementById('detailContent');
 
-    if (imageEl) imageEl.src = news.image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png';
+    const imgSrc = news.image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png';
+    if (imageEl) {
+        imageEl.src = imgSrc;
+        const container = imageEl.parentElement;
+        if (container && container.classList.contains('news-card-image')) {
+            container.style.backgroundImage = `url('${imgSrc}')`;
+        }
+    }
     if (imageEl) imageEl.alt = news.title || '';
     if (catEl) catEl.textContent = news.category || '';
     if (titleEl) titleEl.textContent = news.title || '';
