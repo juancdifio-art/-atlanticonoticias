@@ -3,7 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atlántico Noticias | Detalle de Noticia</title>
+    <title id="pageTitle">Atlántico Noticias | Detalle de Noticia</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📰</text></svg>">
+
+    <!-- Meta Tags SEO (se actualizan dinámicamente) -->
+    <meta name="description" id="metaDescription" content="Noticia de Atlántico Noticias - Necochea y Quequén">
+    <meta name="keywords" content="noticias, necochea, quequén, atlántico, argentina">
+    <meta name="author" content="Atlántico Noticias">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" id="ogUrl" content="">
+    <meta property="og:title" id="ogTitle" content="Atlántico Noticias">
+    <meta property="og:description" id="ogDescription" content="Noticia de Atlántico Noticias">
+    <meta property="og:image" id="ogImage" content="https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png">
+    <meta property="og:locale" content="es_AR">
+    <meta property="article:published_time" id="articlePublishedTime" content="">
+    <meta property="article:author" id="articleAuthor" content="">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" id="twitterUrl" content="">
+    <meta name="twitter:title" id="twitterTitle" content="Atlántico Noticias">
+    <meta name="twitter:description" id="twitterDescription" content="Noticia de Atlántico Noticias">
+    <meta name="twitter:image" id="twitterImage" content="https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
@@ -101,7 +126,7 @@
                 </header>
 
                 <div class="news-card-image" style="height: 380px; margin-bottom: 1.5rem; background-color:#f1f5f9;">
-                    <img id="detailImage" src="" alt="" style="width:100%; height:100%; object-fit:contain;">
+                    <img id="detailImage" src="" alt="" loading="lazy" style="width:100%; height:100%; object-fit:contain;">
                 </div>
 
                 <div class="news-detail-body" id="detailContent" style="font-size: 1.08rem; line-height: 1.9; color: #2D3748;"></div>

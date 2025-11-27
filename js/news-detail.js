@@ -94,6 +94,51 @@ function formatNewsContent(content) {
     return `<p>${formatted}</p>`;
 }
 
+function updateMetaTags(news) {
+    const newsUrl = getNewsUrl(news.id);
+    const imageUrl = news.image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png';
+
+    // Actualizar título de la página
+    document.getElementById('pageTitle').textContent = `${news.title} | Atlántico Noticias`;
+
+    // Actualizar meta description
+    const metaDesc = document.getElementById('metaDescription');
+    if (metaDesc) metaDesc.setAttribute('content', news.summary || news.title);
+
+    // Actualizar Open Graph
+    const ogUrl = document.getElementById('ogUrl');
+    const ogTitle = document.getElementById('ogTitle');
+    const ogDescription = document.getElementById('ogDescription');
+    const ogImage = document.getElementById('ogImage');
+
+    if (ogUrl) ogUrl.setAttribute('content', newsUrl);
+    if (ogTitle) ogTitle.setAttribute('content', news.title);
+    if (ogDescription) ogDescription.setAttribute('content', news.summary || news.title);
+    if (ogImage) ogImage.setAttribute('content', imageUrl);
+
+    // Actualizar datos del artículo
+    const articlePublishedTime = document.getElementById('articlePublishedTime');
+    const articleAuthor = document.getElementById('articleAuthor');
+
+    if (articlePublishedTime && news.created_at) {
+        articlePublishedTime.setAttribute('content', new Date(news.created_at).toISOString());
+    }
+    if (articleAuthor && news.author) {
+        articleAuthor.setAttribute('content', news.author);
+    }
+
+    // Actualizar Twitter Card
+    const twitterUrl = document.getElementById('twitterUrl');
+    const twitterTitle = document.getElementById('twitterTitle');
+    const twitterDescription = document.getElementById('twitterDescription');
+    const twitterImage = document.getElementById('twitterImage');
+
+    if (twitterUrl) twitterUrl.setAttribute('content', newsUrl);
+    if (twitterTitle) twitterTitle.setAttribute('content', news.title);
+    if (twitterDescription) twitterDescription.setAttribute('content', news.summary || news.title);
+    if (twitterImage) twitterImage.setAttribute('content', imageUrl);
+}
+
 function renderNewsDetail(news) {
     const imageEl = document.getElementById('detailImage');
     const catEl = document.getElementById('detailCategory');
@@ -102,6 +147,9 @@ function renderNewsDetail(news) {
     const dateEl = document.getElementById('detailDate');
     const viewsEl = document.getElementById('detailViews');
     const contentEl = document.getElementById('detailContent');
+
+    // Actualizar meta tags para compartir en redes sociales
+    updateMetaTags(news);
 
     const imgSrc = news.image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png';
     if (imageEl) {

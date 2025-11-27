@@ -110,7 +110,7 @@ function renderFeaturedNews() {
         const mainImg = featured[0].image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png';
         html += `
             <div class="featured-main" style="background-image: url('${mainImg}')" onclick="openNewsDetail(${featured[0].id})">
-                <img src="${mainImg}" alt="${featured[0].title}">
+                <img src="${mainImg}" alt="${featured[0].title}" loading="lazy">
                 <div class="featured-overlay">
                     <span class="category">${featured[0].category}</span>
                     <h2>${featured[0].title}</h2>
@@ -127,7 +127,7 @@ function renderFeaturedNews() {
             const smallImg = featured[i].image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png';
             html += `
                 <div class="featured-small" style="background-image: url('${smallImg}')" onclick="openNewsDetail(${featured[i].id})">
-                    <img src="${smallImg}" alt="${featured[i].title}">
+                    <img src="${smallImg}" alt="${featured[i].title}" loading="lazy">
                     <div class="featured-overlay">
                         <span class="category" style="font-size: 0.6rem; padding: 2px 8px; margin-bottom: 5px;">${featured[i].category}</span>
                         <h3>${featured[i].title}</h3>
@@ -167,7 +167,7 @@ function renderNewsGrid() {
         html += `
             <article class="news-card" onclick="openNewsDetail(${news.id})">
                 <div class="news-card-image" style="background-image: url('${imgSrc}')">
-                    <img src="${imgSrc}" alt="${news.title}">
+                    <img src="${imgSrc}" alt="${news.title}" loading="lazy">
                     <span class="category">${news.category}</span>
                 </div>
                 <div class="news-card-content">
@@ -256,7 +256,7 @@ function renderAdminNewsList() {
     newsDatabase.forEach(news => {
         html += `
             <div class="admin-news-item">
-                <img src="${news.image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png'}" alt="${news.title}">
+                <img src="${news.image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png'}" alt="${news.title}" loading="lazy">
                 <div class="admin-news-info">
                     <h4>${news.title.substring(0, 50)}...</h4>
                     <span>${news.category} | ${formatDate(news.created_at)}</span>
