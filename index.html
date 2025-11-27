@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlántico Noticias | Noticias de Necochea y Quequén</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="css/styles-professional.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-banner">
+            <img src="https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png" alt="Atlántico Noticias" class="header-banner-image">
+            <div class="date-display">
+                <i class="far fa-calendar-alt"></i> <span id="currentDate"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <ul class="nav-menu">
+                <li><a href="#" class="active" data-category="todas">Todas</a></li>
+                <li><a href="#" data-category="local">Local</a></li>
+                <li><a href="#" data-category="politica">Política</a></li>
+                <li><a href="#" data-category="deportes">Deportes</a></li>
+                <li><a href="#" data-category="cultura">Cultura</a></li>
+                <li><a href="#" data-category="economia">Economía</a></li>
+                <li><a href="#" data-category="sociedad">Sociedad</a></li>
+            </ul>
+            <div class="header-actions">
+                <button class="btn-admin" onclick="checkAuthAndOpenPanel()">
+                    <i class="fas fa-plus"></i> Nueva Noticia
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Weather Bar -->
+    <div class="weather-bar">
+        <div class="weather-bar-content">
+            <div class="weather-bar-current-section">
+                <div class="weather-bar-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="weather-location">Necochea</span>
+                </div>
+                <div class="weather-bar-main">
+                    <div class="weather-bar-current">
+                        <div class="weather-icon">☀️</div>
+                        <div class="weather-bar-temp">
+                            <span class="weather-temp">24°C</span>
+                            <span class="weather-description">Cargando...</span>
+                        </div>
+                    </div>
+                    <div class="weather-bar-details">
+                        <div class="weather-bar-detail">
+                            <i class="fas fa-temperature-half"></i>
+                            <span>Sensación <strong class="weather-feels">--°C</strong></span>
+                        </div>
+                        <div class="weather-bar-detail">
+                            <i class="fas fa-droplet"></i>
+                            <span>Humedad <strong class="weather-humidity">--%</strong></span>
+                        </div>
+                        <div class="weather-bar-detail">
+                            <i class="fas fa-wind"></i>
+                            <span>Viento <strong class="weather-wind">--</strong> <span class="weather-wind-dir">--</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weather-bar-forecast">
+                <div class="forecast-days-inline" id="forecastDays">
+                    <!-- Forecast days will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breaking News Ticker -->
+    <div class="breaking-news">
+        <div class="breaking-news-content">
+            <span class="breaking-label">
+                <i class="fas fa-bolt"></i> Última Hora
+            </span>
+            <div class="ticker-wrapper">
+                <div class="ticker" id="newsTicker">
+                    <span>Bienvenido a Atlántico Noticias - Informando a Necochea y Quequén</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Featured Section -->
+        <section class="featured-section" id="featuredSection">
+            <!-- Featured news will be inserted here -->
+        </section>
+
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <div class="main-content">
+                <!-- Section Title -->
+                <div class="section-title">
+                    <h2><i class="fas fa-newspaper"></i> Últimas Noticias</h2>
+                </div>
+
+                <!-- News Grid -->
+                <div class="news-grid" id="newsGrid">
+                    <!-- News cards will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Popular News -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-fire"></i> Más Leídas</h3>
+                    <div id="popularNews">
+                        <!-- Popular news will be inserted here -->
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Sobre Nosotros</h4>
+                <p>Atlántico Noticias es tu fuente de información confiable sobre Necochea y Quequén. Comprometidos con la verdad y nuestra comunidad.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Secciones</h4>
+                <ul>
+                    <li><a href="#">Local</a></li>
+                    <li><a href="#">Política</a></li>
+                    <li><a href="#">Deportes</a></li>
+                    <li><a href="#">Cultura</a></li>
+                    <li><a href="#">Economía</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Necochea, Buenos Aires</li>
+                    <li><i class="fas fa-phone"></i> (2262) 123-456</li>
+                    <li><i class="fas fa-envelope"></i> info@atlanticonoticias.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Atlántico Noticias. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay auth-modal" id="authModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-lock"></i> Acceso Administrativo</h2>
+                <button class="close-modal" onclick="closeAuthModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="authForm">
+                    <div class="form-group">
+                        <label for="authCode">
+                            <i class="fas fa-key"></i> Código de Acceso
+                        </label>
+                        <input type="password" id="authCode" placeholder="Ingresa tu código..." required autofocus>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-sign-in-alt"></i> Acceder
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> <span id="modalTitle">Nueva Noticia</span></h2>
+                <button class="close-modal" onclick="closeAdminPanel()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="newsForm">
+                    <input type="hidden" id="newsId">
+
+                    <div class="form-group">
+                        <label for="newsTitle">
+                            <i class="fas fa-heading"></i> Título de la Noticia
+                        </label>
+                        <input type="text" id="newsTitle" placeholder="Escribe un título llamativo..." required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newsCategory">
+                                <i class="fas fa-tag"></i> Categoría
+                            </label>
+                            <select id="newsCategory" required>
+                                <option value="">Seleccionar categoría</option>
+                                <option value="local">Local</option>
+                                <option value="politica">Política</option>
+                                <option value="deportes">Deportes</option>
+                                <option value="cultura">Cultura</option>
+                                <option value="economia">Economía</option>
+                                <option value="sociedad">Sociedad</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsAuthor">
+                                <i class="fas fa-user"></i> Autor
+                            </label>
+                            <input type="text" id="newsAuthor" placeholder="Nombre del autor..." required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newsSummary">
+                            <i class="fas fa-align-left"></i> Resumen (se muestra en las tarjetas)
+                        </label>
+                        <textarea id="newsSummary" rows="3" placeholder="Escribe un breve resumen..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newsContent">
+                            <i class="fas fa-file-alt"></i> Contenido Completo
+                        </label>
+                        <textarea id="newsContent" rows="8" placeholder="Escribe el contenido completo de la noticia..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-image"></i> Imagen de la Noticia
+                        </label>
+                        <div class="image-upload" onclick="document.getElementById('newsImage').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Haz clic para subir una imagen o pega una URL</p>
+                            <input type="file" id="newsImage" accept="image/*" style="display: none" onchange="previewImage(this)">
+                        </div>
+                        <input type="text" id="newsImageUrl" placeholder="O pega aquí la URL de la imagen..." style="margin-top: 10px">
+                        <img id="imagePreview" class="image-preview" alt="Preview">
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="isFeatured">
+                            <i class="fas fa-star"></i> Marcar como noticia destacada
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Publicar Noticia
+                    </button>
+                </form>
+
+                <!-- Lista de noticias existentes -->
+                <div class="admin-news-list">
+                    <h3 style="margin-bottom: 15px; color: var(--primary-color);">
+                        <i class="fas fa-list"></i> Noticias Publicadas
+                    </h3>
+                    <div id="adminNewsList">
+                        <!-- News list will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Detail Modal -->
+    <div class="modal-overlay news-detail-modal" id="newsDetailModal">
+        <div class="modal">
+            <img class="news-detail-image" id="detailImage" src="" alt="">
+            <button class="close-modal" onclick="closeNewsDetail()" style="position: absolute; top: 15px; right: 15px; z-index: 10;">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="news-detail-content">
+                <span class="category" id="detailCategory"></span>
+                <h1 id="detailTitle"></h1>
+                <div class="news-detail-meta">
+                    <span><i class="fas fa-user"></i> <span id="detailAuthor"></span></span>
+                    <span><i class="fas fa-calendar"></i> <span id="detailDate"></span></span>
+                    <span><i class="fas fa-eye"></i> <span id="detailViews"></span> lecturas</span>
+                </div>
+                <div class="news-detail-body" id="detailContent"></div>
+                <div class="news-detail-share">
+                    <span>Compartir:</span>
+                    <button class="share-btn facebook" onclick="shareOnFacebook()">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button class="share-btn twitter" onclick="shareOnTwitter()">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                    <button class="share-btn whatsapp" onclick="shareOnWhatsApp()">
+                        <i class="fab fa-whatsapp"></i>
+                    </button>
+                    <button class="share-btn copy" onclick="copyLink()">
+                        <i class="fas fa-link"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- JavaScript files -->
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/weather-alternative.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlántico Noticias | Detalle de Noticia</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="css/styles-professional.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-banner">
+            <img src="https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png" alt="Atlántico Noticias" class="header-banner-image">
+            <div class="date-display">
+                <i class="far fa-calendar-alt"></i> <span id="currentDate"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation (igual que index) -->
+    <nav>
+        <div class="container nav-container">
+            <ul class="nav-menu">
+                <li><a href="index.html" data-category="todas">Todas</a></li>
+                <li><a href="index.html" data-category="local">Local</a></li>
+                <li><a href="index.html" data-category="politica">Política</a></li>
+                <li><a href="index.html" data-category="deportes">Deportes</a></li>
+                <li><a href="index.html" data-category="cultura">Cultura</a></li>
+                <li><a href="index.html" data-category="economia">Economía</a></li>
+                <li><a href="index.html" data-category="sociedad">Sociedad</a></li>
+            </ul>
+            <div class="header-actions">
+                <button class="btn-admin" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i> Volver al inicio
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Weather Bar (opcional, igual que index) -->
+    <div class="weather-bar">
+        <div class="weather-bar-content">
+            <div class="weather-bar-current-section">
+                <div class="weather-bar-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="weather-location">Necochea</span>
+                </div>
+                <div class="weather-bar-main">
+                    <div class="weather-bar-current">
+                        <div class="weather-icon">☀️</div>
+                        <div class="weather-bar-temp">
+                            <span class="weather-temp">24°C</span>
+                            <span class="weather-description">Cargando...</span>
+                        </div>
+                    </div>
+                    <div class="weather-bar-details">
+                        <div class="weather-bar-detail">
+                            <i class="fas fa-temperature-half"></i>
+                            <span>Sensación <strong class="weather-feels">--°C</strong></span>
+                        </div>
+                        <div class="weather-bar-detail">
+                            <i class="fas fa-droplet"></i>
+                            <span>Humedad <strong class="weather-humidity">--%</strong></span>
+                        </div>
+                        <div class="weather-bar-detail">
+                            <i class="fas fa-wind"></i>
+                            <span>Viento <strong class="weather-wind">--</strong> <span class="weather-wind-dir">--</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weather-bar-forecast">
+                <div class="forecast-days-inline" id="forecastDays"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Article Content -->
+    <main>
+        <div class="container detail-layout">
+            <!-- Artículo principal -->
+            <article class="news-card" style="box-shadow: none; border: none; border-radius: 0; background: transparent;">
+                <header class="section-title" style="border-bottom: none; padding-bottom: 0; margin-bottom: 1.5rem;">
+                    <div>
+                        <span class="category" id="detailCategory"></span>
+                        <h2 id="detailTitle" style="margin-top: 0.75rem;"></h2>
+                        <div class="news-detail-meta" style="margin-top: 0.75rem; font-size: 0.95rem; color: #4A5568; display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                            <span><i class="fas fa-user"></i> <span id="detailAuthor"></span></span>
+                            <span><i class="fas fa-calendar"></i> <span id="detailDate"></span></span>
+                            <span><i class="fas fa-eye"></i> <span id="detailViews"></span> lecturas</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="news-card-image" style="height: 380px; margin-bottom: 1.5rem; background-color:#f1f5f9;">
+                    <img id="detailImage" src="" alt="" style="width:100%; height:100%; object-fit:contain;">
+                </div>
+
+                <div class="news-detail-body" id="detailContent" style="font-size: 1.08rem; line-height: 1.9; color: #2D3748;"></div>
+
+                <div class="news-detail-share" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #E2E8F0; display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-weight: 600;">Compartir:</span>
+                    <button class="share-btn facebook" onclick="shareOnFacebook()"><i class="fab fa-facebook-f"></i></button>
+                    <button class="share-btn twitter" onclick="shareOnTwitter()"><i class="fab fa-twitter"></i></button>
+                    <button class="share-btn whatsapp" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i></button>
+                    <button class="share-btn copy" onclick="copyLink()"><i class="fas fa-link"></i></button>
+                </div>
+            </article>
+
+            <!-- Sidebar: Más leídas / recientes -->
+            <aside class="sidebar">
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-fire"></i> Más Leídas</h3>
+                    <div id="sidebarPopular"></div>
+                </div>
+
+                <div class="sidebar-widget" style="margin-top: 1.5rem;">
+                    <h3><i class="fas fa-clock"></i> Últimas Noticias</h3>
+                    <div id="sidebarLatest"></div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Footer (igual que index) -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Sobre Nosotros</h4>
+                <p>Atlántico Noticias es tu fuente de información confiable sobre Necochea y Quequén. Comprometidos con la verdad y nuestra comunidad.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Secciones</h4>
+                <ul>
+                    <li><a href="index.html">Local</a></li>
+                    <li><a href="index.html">Política</a></li>
+                    <li><a href="index.html">Deportes</a></li>
+                    <li><a href="index.html">Cultura</a></li>
+                    <li><a href="index.html">Economía</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Necochea, Buenos Aires</li>
+                    <li><i class="fas fa-phone"></i> (2262) 123-456</li>
+                    <li><i class="fas fa-envelope"></i> info@atlanticonoticias.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Atlántico Noticias. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- JavaScript files -->
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/weather-alternative.js"></script>
+    <script src="js/news-detail.js"></script>
+</body>
+</html>
