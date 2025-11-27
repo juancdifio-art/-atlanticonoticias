@@ -54,33 +54,47 @@ function renderFeaturedNews() {
     const featuredSection = document.getElementById('featuredSection');
     if (!featuredSection) return;
 
-    // Filtrar noticias según la categoría actual
-    const sourceNews = currentCategory === 'todas'
-        ? newsDatabase
-        : newsDatabase.filter(n => n.category === currentCategory);
-
-    if (!sourceNews || sourceNews.length === 0) {
+    if (!newsDatabase || newsDatabase.length === 0) {
         featuredSection.style.display = 'none';
         featuredSection.innerHTML = '';
         return;
     }
 
-    // Obtener noticias destacadas dentro de la categoría
-    let featured = sourceNews.filter(n => n.featured);
-    
-    // Si no hay suficientes destacadas (menos de 3), rellenar con las últimas noticias no destacadas
-    if (featured.length < 3) {
-        const nonFeatured = sourceNews
-            .filter(n => !n.featured)
-            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-            
-        const needed = 3 - featured.length;
-        const fillers = nonFeatured.slice(0, needed);
-        featured = [...featured, ...fillers];
+    // Noticias de la categoría actual (prioritarias)
+    const inCategory = currentCategory === 'todas'
+        ? [...newsDatabase]
+        : newsDatabase.filter(n => n.category === currentCategory);
+
+    // Noticias de otras categorías (fallback si faltan destacadas)
+    const otherNews = currentCategory === 'todas'
+        ? []
+        : newsDatabase.filter(n => n.category !== currentCategory);
+
+    const sortByDateDesc = (a, b) => new Date(b.created_at) - new Date(a.created_at);
+
+    let pool = [];
+
+    // 1) Destacadas de la categoría actual
+    const catFeatured = inCategory.filter(n => n.featured).sort(sortByDateDesc);
+    const catNonFeatured = inCategory.filter(n => !n.featured).sort(sortByDateDesc);
+    pool.push(...catFeatured, ...catNonFeatured);
+
+    // 2) Si aún faltan para llegar a 3, completar con otras secciones
+    if (pool.length < 3 && otherNews.length > 0) {
+        const otherFeatured = otherNews.filter(n => n.featured).sort(sortByDateDesc);
+        const otherNonFeatured = otherNews.filter(n => !n.featured).sort(sortByDateDesc);
+        const fallback = [...otherFeatured, ...otherNonFeatured];
+
+        for (const n of fallback) {
+            if (!pool.some(p => p.id === n.id)) {
+                pool.push(n);
+                if (pool.length >= 3) break;
+            }
+        }
     }
-    
-    // Limitar a 3 items máximo
-    featured = featured.slice(0, 3);
+
+    // Limitar a un máximo de 3
+    const featured = pool.slice(0, Math.min(3, pool.length));
 
     if (featured.length === 0) {
         featuredSection.style.display = 'none';
@@ -93,9 +107,10 @@ function renderFeaturedNews() {
 
     // Noticia Principal (Grande)
     if (featured[0]) {
+        const mainImg = featured[0].image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png';
         html += `
-            <div class="featured-main" onclick="openNewsDetail(${featured[0].id})">
-                <img src="${featured[0].image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png'}" alt="${featured[0].title}">
+            <div class="featured-main" style="background-image: url('${mainImg}')" onclick="openNewsDetail(${featured[0].id})">
+                <img src="${mainImg}" alt="${featured[0].title}">
                 <div class="featured-overlay">
                     <span class="category">${featured[0].category}</span>
                     <h2>${featured[0].title}</h2>
@@ -109,9 +124,10 @@ function renderFeaturedNews() {
     if (featured.length > 1) {
         html += '<div class="featured-sidebar">';
         for (let i = 1; i < featured.length; i++) {
+            const smallImg = featured[i].image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png';
             html += `
-                <div class="featured-small" onclick="openNewsDetail(${featured[i].id})">
-                    <img src="${featured[i].image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png'}" alt="${featured[i].title}">
+                <div class="featured-small" style="background-image: url('${smallImg}')" onclick="openNewsDetail(${featured[i].id})">
+                    <img src="${smallImg}" alt="${featured[i].title}">
                     <div class="featured-overlay">
                         <span class="category" style="font-size: 0.6rem; padding: 2px 8px; margin-bottom: 5px;">${featured[i].category}</span>
                         <h3>${featured[i].title}</h3>
