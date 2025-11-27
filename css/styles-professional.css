@@ -635,6 +635,12 @@ main {
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
     line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .news-card-footer {
@@ -645,6 +651,17 @@ main {
     align-items: center;
     color: #718096;
     font-size: 0.85rem;
+}
+
+.badge-new {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 /* Sidebar */
@@ -1067,6 +1084,8 @@ footer {
 
     .news-card-content p {
         font-size: 1rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
     }
 
     .news-card-footer {
