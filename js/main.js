@@ -246,14 +246,36 @@ function updateNewsTicker() {
 // Renderizar lista de noticias en el panel admin
 function renderAdminNewsList() {
     const adminList = document.getElementById('adminNewsList');
+    if (!adminList) return;
 
-    if (newsDatabase.length === 0) {
+    if (!newsDatabase || newsDatabase.length === 0) {
         adminList.innerHTML = '<p style="color: #888; text-align: center;">No hay noticias publicadas</p>';
         return;
     }
 
+    let filtered = [...newsDatabase];
+
+    const searchInput = document.getElementById('adminSearchInput');
+    const query = searchInput && searchInput.value ? searchInput.value.trim().toLowerCase() : '';
+
+    if (query) {
+        filtered = filtered.filter(n => (n.title || '').toLowerCase().includes(query));
+    }
+
+    if (filtered.length === 0) {
+        adminList.innerHTML = '<p style="color: #888; text-align: center;">No se encontraron noticias</p>';
+        return;
+    }
+
+    filtered = filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+    // Si no hay búsqueda activa, mostrar solo las últimas 10 para que la lista no sea interminable
+    if (!query) {
+        filtered = filtered.slice(0, 10);
+    }
+
     let html = '';
-    newsDatabase.forEach(news => {
+    filtered.forEach(news => {
         html += `
             <div class="admin-news-item">
                 <img src="${news.image_url || 'https://qrwxulufpddqlpwguwfg.supabase.co/storage/v1/object/public/AtlanticoNoticias/Header%20escollera.png'}" alt="${news.title}" loading="lazy">

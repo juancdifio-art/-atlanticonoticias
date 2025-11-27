@@ -894,6 +894,111 @@ footer {
     background: var(--secondary-color);
 }
 
+/* Admin Panel - News Management */
+.image-preview {
+    display: none;
+    margin-top: 0.75rem;
+    max-width: 100%;
+    max-height: 160px;
+    border-radius: 6px;
+    box-shadow: var(--shadow-sm);
+    object-fit: contain;
+}
+
+.admin-news-list {
+    margin-top: 2rem;
+}
+
+.admin-news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+#adminSearchInput {
+    flex: 0 0 260px;
+    max-width: 100%;
+    padding: 0.6rem 0.75rem;
+    border-radius: 4px;
+    border: 1px solid #E2E8F0;
+    font-size: 0.9rem;
+}
+
+#adminSearchInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 43, 73, 0.08);
+}
+
+.admin-news-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.admin-news-item img {
+    width: 72px;
+    height: 54px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.admin-news-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.admin-news-info h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-main);
+}
+
+.admin-news-info span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.admin-news-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+.btn-edit,
+.btn-delete {
+    border: none;
+    border-radius: 4px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-edit {
+    background: #38A169;
+    color: white;
+}
+
+.btn-delete {
+    background: #E53E3E;
+    color: white;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+    transform: translateY(-1px);
+}
+
 /* ========== RESPONSIVE DESIGN ========== */
 
 /* Tablet (1024px y menor) */
