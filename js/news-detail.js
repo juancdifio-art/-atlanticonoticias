@@ -68,6 +68,32 @@ function showNotFound(title, message) {
     `;
 }
 
+function formatNewsContent(content) {
+    if (!content) return '';
+
+    let formatted = content;
+
+    // Convert ## Subtitles to <h3>
+    formatted = formatted.replace(/^## (.+)$/gm, '<h3>$1</h3>');
+
+    // Convert **bold** to <strong>
+    formatted = formatted.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+    // Convert *italic* to <em>
+    formatted = formatted.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+    // Convert > quotes to <blockquote>
+    formatted = formatted.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+
+    // Convert paragraphs (double newlines)
+    formatted = formatted.replace(/\n\n+/g, '</p><p>');
+
+    // Convert single newlines to <br>
+    formatted = formatted.replace(/\n/g, '<br>');
+
+    return `<p>${formatted}</p>`;
+}
+
 function renderNewsDetail(news) {
     const imageEl = document.getElementById('detailImage');
     const catEl = document.getElementById('detailCategory');
@@ -98,8 +124,7 @@ function renderNewsDetail(news) {
     if (viewsEl) viewsEl.textContent = news.views ?? 0;
 
     if (contentEl) {
-        const safeContent = (news.content || '').replace(/\n\n+/g, '</p><p>').replace(/\n/g, '<br>');
-        contentEl.innerHTML = `<p>${safeContent}</p>`;
+        contentEl.innerHTML = formatNewsContent(news.content || '');
     }
 }
 

@@ -177,6 +177,9 @@ function renderNewsGrid() {
                         <span class="news-meta">
                             <i class="fas fa-calendar"></i> ${formatDate(news.created_at)}
                         </span>
+                        <span class="news-meta">
+                            ${news.views > 0 ? `<i class="fas fa-eye"></i> ${news.views} lectura${news.views === 1 ? '' : 's'}` : '<span class="badge-new">Nueva</span>'}
+                        </span>
                         <div class="share-buttons" onclick="event.stopPropagation()">
                             <button class="share-btn facebook" onclick="shareOnFacebook(${news.id})">
                                 <i class="fab fa-facebook-f"></i>
